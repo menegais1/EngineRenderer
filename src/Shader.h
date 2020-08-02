@@ -15,6 +15,8 @@ private:
 
     void setUniform(int location, int value);
 
+    void setUniform(int location, unsigned int value);
+
     void setUniform(int location, float value);
 
     void setUniform(int location, fvec2 value);

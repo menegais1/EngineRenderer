@@ -116,3 +116,7 @@ void Shader::setUniform(int location, dMatrix value) {
     }
     glUniformMatrix4fv(location, 1, true, values);
 }
+
+void Shader::setUniform(int location, unsigned int value) {
+    glUniform1ui(location, value);
+}

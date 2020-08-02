@@ -16,6 +16,13 @@ add_executable(RendererEngine
         src/Camera/Camera.cpp
         src/Camera/CameraMovement.cpp
         src/Camera/CameraMovement.h
+        src/Texture2D.cpp
+        src/Texture2D.h
+        src/Bitmap/Bitmap.h
+        src/Bitmap/Bitmap.cpp
+        src/Utilities.cpp
+        src/Utilities.h
+
         )
 
 add_subdirectory(Dependencies/glfw)

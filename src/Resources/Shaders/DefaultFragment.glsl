@@ -1,8 +1,12 @@
 #version 460 core
 
 out vec4 FragColor;
-uniform vec4 UNIFORM_color;
+uniform sampler2D UNIFORM_texture;
+
+varying vec2 v_uv;
+
 void main()
 {
-    FragColor = vec4(UNIFORM_color.x, UNIFORM_color.y, UNIFORM_color.z, UNIFORM_color.w);
+    vec4 color = texture(UNIFORM_texture, v_uv);
+    FragColor = vec4(color.x, color.y, color.z, 1);
 }

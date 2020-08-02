@@ -58,7 +58,7 @@ void GraphicsLibrary::keyCallback(GLFWwindow *window, int key, int scancode, int
 }
 
 void GraphicsLibrary::cursorPosCallback(GLFWwindow *window, double xpos, double ypos) {
-    std::cout << xpos << " " << ypos << std::endl;
+//    std::cout << xpos << " " << ypos << std::endl;
 }
 
 void GraphicsLibrary::mouseButtonCallback(GLFWwindow *window, int button, int action, int modifier) {
