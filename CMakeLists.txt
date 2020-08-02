@@ -11,7 +11,12 @@ add_executable(RendererEngine
         src/Shader.cpp
         src/Shader.h
         src/FileLoader.cpp
-        src/FileLoader.h)
+        src/FileLoader.h
+        src/Camera/Camera.h
+        src/Camera/Camera.cpp
+        src/Camera/CameraMovement.cpp
+        src/Camera/CameraMovement.h
+        )
 
 add_subdirectory(Dependencies/glfw)
 include_directories(Dependencies/glfw/include)

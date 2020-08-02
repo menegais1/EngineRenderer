@@ -7,17 +7,43 @@
 
 
 #include <string>
+#include <glad/glad.h>
+#include "Vectors/Vector2.h"
 
 class Shader {
+private:
+
+    void setUniform(int location, int value);
+
+    void setUniform(int location, float value);
+
+    void setUniform(int location, fvec2 value);
+
+    void setUniform(int location, fvec3 value);
+
+    void setUniform(int location, fvec4 value);
+
+    void setUniform(int location, dMatrix value);
+
 public:
+
+    unsigned int shaderProgram;
 
     static unsigned int createVertexShader(std::string shader);
 
     static unsigned int createFragmentShader(std::string shader);
 
-    static unsigned int createShaderProgram(unsigned int vertexShader, unsigned int fragmentShader);
+    Shader(unsigned int vertexShader, unsigned int fragmentShader);
 
     static std::string loadShaderFile(std::string filePath);
+
+
+    template<typename T>
+    void setUniform(const char *uniform, T value) {
+        int uniformLocation = glGetUniformLocation(shaderProgram, uniform);
+        setUniform(uniformLocation, value);
+    }
+
 };
 
 

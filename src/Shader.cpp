@@ -67,8 +67,7 @@ unsigned int Shader::createFragmentShader(std::string shader) {
     return fragmentShader;
 }
 
-unsigned int Shader::createShaderProgram(unsigned int vertexShader, unsigned int fragmentShader) {
-    unsigned int shaderProgram;
+Shader::Shader(unsigned int vertexShader, unsigned int fragmentShader) {
     shaderProgram = glCreateProgram();
     glAttachShader(shaderProgram, vertexShader);
     glAttachShader(shaderProgram, fragmentShader);
@@ -84,5 +83,36 @@ unsigned int Shader::createShaderProgram(unsigned int vertexShader, unsigned int
     }
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
-    return shaderProgram;
+}
+
+void Shader::setUniform(int location, int value) {
+    glUniform1i(location, value);
+}
+
+void Shader::setUniform(int location, float value) {
+    glUniform1f(location, value);
+}
+
+void Shader::setUniform(int location, fvec2 value) {
+    glUniform2f(location, value.x, value.y);
+}
+
+void Shader::setUniform(int location, fvec3 value) {
+    glUniform3f(location, value.x, value.y, value.z);
+}
+
+void Shader::setUniform(int location, fvec4 value) {
+    glUniform4f(location, value.x, value.y, value.z, value.w);
+}
+
+void Shader::setUniform(int location, dMatrix value) {
+    //This cast to float is needed for some reason
+    float values[16];
+    int cont = 0;
+    for (int l = 0; l < 4; ++l) {
+        for (int c = 0; c < 4; ++c) {
+            values[cont++] = value[l][c];
+        }
+    }
+    glUniformMatrix4fv(location, 1, true, values);
 }
