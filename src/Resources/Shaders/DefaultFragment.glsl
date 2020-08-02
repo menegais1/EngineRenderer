@@ -8,5 +8,5 @@ varying vec2 v_uv;
 void main()
 {
     vec4 color = texture(UNIFORM_texture, v_uv);
-    FragColor = vec4(color.x, color.y, color.z, 1);
+    FragColor = vec4(color.x, color.y, color.z, color.w);
 }

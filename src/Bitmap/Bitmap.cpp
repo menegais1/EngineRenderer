@@ -70,12 +70,13 @@ bool Bitmap::checkColorPallete(fstream &file) {
 void Bitmap::loadColorPallete(fstream &file) {
     int palleteCount = pow(2, bitmapHeader.BiBitCount);
     colorPallete = new fvec4[palleteCount];
-
+    unsigned char pallete[4];
     for (int i = 0; i < palleteCount; i++) {
-        file.read(reinterpret_cast<char *>(&colorPallete[i][2]), 1);
-        file.read(reinterpret_cast<char *>(&colorPallete[i][1]), 1);
-        file.read(reinterpret_cast<char *>(&colorPallete[i][0]), 1);
-        file.read(reinterpret_cast<char *>(&colorPallete[i][3]), 1);
+        file.read(reinterpret_cast<char *>(&pallete[2]), 1);
+        file.read(reinterpret_cast<char *>(&pallete[1]), 1);
+        file.read(reinterpret_cast<char *>(&pallete[0]), 1);
+        file.read(reinterpret_cast<char *>(&pallete[3]), 1);
+        colorPallete[i] = fvec4(pallete[0], pallete[1], pallete[2], pallete[3]);
     }
 }
 
@@ -91,12 +92,12 @@ fvec4 Bitmap::getPixelFromPallete(const unsigned char pixelValue) {
 void Bitmap::loadImage(fstream &file) {
     file.clear();
     file.seekg(fileHeader.BfOffSetBits, ios::beg);
-    int rowSize = ceil((bitmapHeader.BiBitCount * bitmapHeader.BiWidth) / 32) * 4;
+    int rowSize = std::ceil((bitmapHeader.BiBitCount * bitmapHeader.BiWidth) / 32) * 4;
     int padding = rowSize - (bitmapHeader.BiBitCount / 8 * bitmapHeader.BiWidth);
     int bitmapSize = bitmapHeader.BiWidth * bitmapHeader.BiHeight;
-    char *byteArray = new char[rowSize];
+    unsigned char *byteArray = new unsigned char[rowSize];
 
-    bitmapArray = new fvec4[bitmapSize];
+    bitmapArray = new fvec4[bitmapSize + 1];
 
     cout << "Bitmap size:" << bitmapSize << endl;
     cout << "Row Size:" << rowSize << endl;
@@ -104,7 +105,7 @@ void Bitmap::loadImage(fstream &file) {
 
     if (colorPalleteExists) {
         for (int l = 0; l < bitmapHeader.BiHeight; l++) {
-            file.read(byteArray, rowSize);
+            file.read(reinterpret_cast<char *>(byteArray), rowSize);
 
             for (int i = 0; i <= rowSize - padding; i++) {
 
@@ -113,27 +114,27 @@ void Bitmap::loadImage(fstream &file) {
 
                         unsigned char pixelValue = (byteArray[i] << j) >> 7;
 
-                        bitmapArray[l * bitmapHeader.BiWidth + i + j] = getPixelFromPallete(pixelValue);
+                        bitmapArray[l * bitmapHeader.BiWidth + i + j] = getPixelFromPallete(pixelValue) / 255.0;
                     }
                 }
                 if (bitmapHeader.BiBitCount == 4) {
                     for (int j = 0; j < 2; j++) {
 
                         unsigned char pixelValue = (byteArray[i] << j) >> 4;
-                        bitmapArray[l * bitmapHeader.BiWidth + i + j] = getPixelFromPallete(pixelValue);
+                        bitmapArray[l * bitmapHeader.BiWidth + i + j] = getPixelFromPallete(pixelValue) / 255.0;
                     }
                 }
                 if (bitmapHeader.BiBitCount == 8) {
 
                     unsigned char pixelValue = byteArray[i];
-                    bitmapArray[l * bitmapHeader.BiWidth + i] = getPixelFromPallete(pixelValue);
+                    bitmapArray[l * bitmapHeader.BiWidth + i] = getPixelFromPallete(pixelValue) / 255.0;
                 }
             }
         }
     } else {
 
         for (int l = 0; l < bitmapHeader.BiHeight; l++) {
-            file.read(byteArray, rowSize);
+            file.read(reinterpret_cast<char *>(byteArray), rowSize);
             for (int i = 0, j = 0; i <= rowSize - padding - 3; i += (int) (bitmapHeader.BiBitCount / 8), j++) {
                 fvec4 p;
                 if (bitmapHeader.BiBitCount == 24) {
@@ -153,7 +154,7 @@ void Bitmap::loadImage(fstream &file) {
         }
     }
 
-    originalBitmapArray = new fvec4[bitmapSize];
+    originalBitmapArray = new fvec4[bitmapSize + 1];
     std::memcpy(originalBitmapArray, bitmapArray, bitmapSize * sizeof(fvec4));
 }
 
