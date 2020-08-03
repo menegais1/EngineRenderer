@@ -9,7 +9,7 @@ std::string FileLoader::getPath(std::string path) {
     return "../src/" + path;
 #endif
 #if CODEBLOCKS == 1
-    return "EngineRenderer/" + path;
+    return "./EngineRenderer/src/" + path;
 #endif
     return "";
 }

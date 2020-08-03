@@ -24,12 +24,20 @@ add_executable(RendererEngine
         src/Utilities.h
 
         )
-
-add_subdirectory(Dependencies/glfw)
 include_directories(Dependencies/glfw/include)
 include_directories(Dependencies/glad/include)
-
 find_package(OpenGL REQUIRED)
 
-target_link_libraries(RendererEngine glfw ${OPENGL_LIBRARIES} ${GLFW_LIBRARIES})
+if (WIN32)
+    add_subdirectory(Dependencies/glfw-WIN_64)
+    target_link_libraries(RendererEngine glfw ${OPENGL_LIBRARIES} ${GLFW_LIBRARIES})
+endif ()
+
+if (UNIX)
+
+    add_subdirectory(Dependencies/glfw)
+    target_link_libraries(RendererEngine glfw ${OPENGL_LIBRARIES} ${GLFW_LIBRARIES})
+endif ()
+
+
 

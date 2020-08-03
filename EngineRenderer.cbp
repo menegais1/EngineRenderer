@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="CarEngine" />
+		<Option title="EngineRenderer" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
@@ -17,6 +17,9 @@
 					<Add option="-g" />
 					<Add directory="include" />
 				</Compiler>
+				<Linker>
+                    <Add library="gdi32" />
+                </Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="../__bin/Release/EngineRenderer" prefix_auto="1" extension_auto="1" />
@@ -39,21 +42,19 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Linker>
-			<!--LINUX-->
-
+			<!--LINUX
 			<Add option="-lglfw3" />
 			<Add option="-ldl" />
 			<Add option="-lm" />
 			<Add option="-lGL" />
 			<Add option="-lGLU" />
 			<Add option="-lX11" />
-			<Add option="-pthread" />
-
-			<!--WINDOWS
-			<Add library="../lib/libglu32.a" />
-			<Add library="../lib/libopengl32.a" />
-			<Add library="../lib/freeglut.lib" />
-            -->
+			<Add option="-pthread" />-->
+			<!--WINDOWS -->
+			<Add option="-lgdi32"/>
+			<Add library="Dependencies/glfw-WIN_64/lib-mingw/glfw3.dll" />
+			<Add library="Dependencies/glfw-WIN_64/lib-mingw/libglfw3.a" />
+			<Add library="Dependencies/glfw-WIN_64/lib-mingw/libglfw3dll.a" />
 		</Linker>
 	            <Unit filename="include/glad/glad.h"></Unit>
 	            <Unit filename="include/glad/glad.c"></Unit>
@@ -61,6 +62,24 @@
                 <Unit filename="include/GLFW/glfw3.h"></Unit>
                 <Unit filename="include/GLFW/glfw3native.h"></Unit>
                 <Unit filename="src/main.cpp"></Unit>
+                <Unit filename="src/FileLoader.cpp"></Unit>
+                <Unit filename="src/FileLoader.h"></Unit>
+                <Unit filename="src/GraphicsLibrary.h"></Unit>
+                <Unit filename="src/GraphicsLibrary.cpp"></Unit>
+                <Unit filename="src/Shader.cpp"></Unit>
+                <Unit filename="src/Shader.h"></Unit>
+                <Unit filename="src/Texture2D.h"></Unit>
+                <Unit filename="src/Texture2D.cpp"></Unit>
+                <Unit filename="src/Utilities.cpp"></Unit>
+                <Unit filename="src/Utilities.h"></Unit>
+                <Unit filename="src/Bitmap/Bitmap.h"></Unit>
+                <Unit filename="src/Bitmap/Bitmap.cpp"></Unit>
+                <Unit filename="src/Camera/Camera.cpp"></Unit>
+                <Unit filename="src/Camera/Camera.h"></Unit>
+                <Unit filename="src/Vectors/Matrix.h"></Unit>
+                <Unit filename="src/Vectors/Vector2.h"></Unit>
+                <Unit filename="src/Vectors/Vector3.h"></Unit>
+                <Unit filename="src/Vectors/Vector4.h"></Unit>
 		<Extensions>
 			<code_completion />
 			<debugger />

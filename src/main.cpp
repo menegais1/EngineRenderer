@@ -23,7 +23,7 @@ int main(void) {
     dvec3 center(0, 0, 0);
     dvec3 eye = dvec3(0, 1, 1);
     Camera::getInstance()->generateViewMatrix(eye, center, dvec3(0, 1, 0));
-    Camera::getInstance()->generateProjectionMatrix(60 * (M_PI) / 180.0, width /
+    Camera::getInstance()->generateProjectionMatrix(60 * (3.14) / 180.0, width /
                                                                          (float) height,
                                                     0.1,
                                                     10);

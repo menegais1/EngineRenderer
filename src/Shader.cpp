@@ -21,7 +21,7 @@ std::string Shader::loadShaderFile(std::string filePath) {
     while (!file.eof()) {
         sourceCode.append(1, file.get());
     }
-
+    sourceCode[sourceCode.length() - 1] = '\0';
     return sourceCode;
 }
 

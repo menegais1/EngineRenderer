@@ -3,7 +3,7 @@
 out vec4 FragColor;
 uniform sampler2D UNIFORM_texture;
 
-varying vec2 v_uv;
+in vec2 v_uv;
 
 void main()
 {
