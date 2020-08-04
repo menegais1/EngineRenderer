@@ -18,7 +18,7 @@ int main(void) {
 
     unsigned int vertex = Shader::createVertexShader(FileLoader::getPath("Resources/Shaders/DefaultVertex.glsl"));
     unsigned int fragment = Shader::createFragmentShader(FileLoader::getPath("Resources/Shaders/DefaultFragment.glsl"));
-    Shader *defaultShader = new Shader(vertex, fragment);
+    Shader defaultShader(vertex, fragment);
     Bitmap *bmp = new Bitmap(FileLoader::getPath("Resources/Textures/Albedo.bmp"));
     Texture2D rustyMetal(GL_RGBA, GL_RGBA, GL_FLOAT, bmp->originalBitmapArray, bmp->width, bmp->height);
     dvec3 center(0, 0, 0);
@@ -30,7 +30,6 @@ int main(void) {
                                                     10);
     Camera::getInstance()->setViewport(width, height, 0, 0);
 
-    Material *defaultMat = new Material(*defaultShader);
     std::vector<fvec3> vertices = {{-0.5, -0.5, 0},
                                    {-0.5, 0.5,  0},
                                    {0.5,  -0.5, 0}};
@@ -40,20 +39,20 @@ int main(void) {
                              {1, 1, 0}};
     std::vector<ObjectFace> faces = {{ivec3(0, 1, 2), ivec3(0, 0, 0), ivec3(0, 1, 2)}};
 
-    ObjectGL *temp = new ObjectGL(defaultMat, vertices, faces, normals, uv);
+    ObjectGL *temp = new ObjectGL(defaultShader, vertices, faces, normals, uv);
     temp->setup();
     while (!glfwWindowShouldClose(window)) {
 
         /* Render here */
         glClearColor(1, 1, 1, 1);
         glClear(GL_COLOR_BUFFER_BIT);
-
-        defaultMat->setProperty("UNIFORM_color", fvec4(std::sin(glfwGetTime()), std::cos(glfwGetTime()), 0, 1));
-        defaultMat->setProperty("UNIFORM_projection", Camera::getInstance()->Projection);
-        defaultMat->setProperty("UNIFORM_view", Camera::getInstance()->View);
-        defaultMat->setProperty("UNIFORM_model", dMatrix::identity(4));
-        defaultMat->setProperty("UNIFORM_texture", 0);
-        glUseProgram(defaultShader->shaderProgram);
+        rustyMetal.activateTexture(1);
+        defaultShader.setUniform("UNIFORM_color", fvec4(std::sin(glfwGetTime()), std::cos(glfwGetTime()), 0, 1));
+        defaultShader.setUniform("UNIFORM_projection", Camera::getInstance()->Projection);
+        defaultShader.setUniform("UNIFORM_view", Camera::getInstance()->View);
+        defaultShader.setUniform("UNIFORM_model", dMatrix::identity(4));
+        defaultShader.setUniform("UNIFORM_texture", 1);
+        defaultShader.activateShader();
         temp->render();
 
         /* Swap front and back buffers */

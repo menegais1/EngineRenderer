@@ -120,3 +120,7 @@ void Shader::setUniform(int location, dMatrix value) {
 void Shader::setUniform(int location, unsigned int value) {
     glUniform1ui(location, value);
 }
+
+void Shader::activateShader() {
+    glUseProgram(shaderProgram);
+}

@@ -7,8 +7,8 @@
 
 
 #include <glad/glad.h>
-#include "Material.h"
 #include "Texture2D.h"
+#include "Shader.h"
 
 struct ObjectFace {
     ivec3 vertices;
@@ -23,21 +23,16 @@ private:
     GLuint VBO;
     GLuint VAO;
     GLuint EBO;
-    Material *material;
     std::vector<float> vertexBuffer;
     std::vector<unsigned int> elementBuffer;
-
     std::vector<fvec3> &vertices;
     std::vector<ObjectFace> &faces;
     std::vector<fvec3> &normals;
     std::vector<fvec3> &uvs;
-
-    Texture2D rustyMetal;
+    Shader shader;
 public:
-    ObjectGL(Material *material, std::vector<fvec3> &vertices, std::vector<ObjectFace> &faces,
+    ObjectGL(Shader shader,std::vector<fvec3> &vertices, std::vector<ObjectFace> &faces,
              std::vector<fvec3> &normals, std::vector<fvec3> &uvs);
-
-    void setMaterial(Material *material);
 
     void setup();
 

@@ -39,6 +39,7 @@ public:
 
     static std::string loadShaderFile(std::string filePath);
 
+    void activateShader();
 
     template<typename T>
     void setUniform(const char *uniform, T value) {

@@ -13,6 +13,7 @@ class Texture2D {
 public:
     unsigned int texture;
 
+    void activateTexture(int textureUnit);
     Texture2D(GLenum glFormat, GLenum srcFormat, GLenum srcType, void *data, int width, int height);
 
     Texture2D();
