@@ -9,14 +9,8 @@
 #include <glad/glad.h>
 #include "Texture2D.h"
 #include "Shader.h"
-
-struct ObjectFace {
-    ivec3 vertices;
-    ivec3 normals;
-    ivec3 uv;
-
-    ObjectFace(ivec3 vertices, ivec3 normals, ivec3 uv) : vertices(vertices), normals(normals), uv(uv) {};
-};
+#include "Base3DObjects/ModelLoader.h"
+#include "Base/3D/ObjectFace.h"
 
 class ObjectGL {
 private:

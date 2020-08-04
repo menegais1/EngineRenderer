@@ -15,7 +15,8 @@
 				<Compiler>
 					<Add option="-std=c++11" />
 					<Add option="-g" />
-					<Add directory="include" />
+	                <Add directory="Dependencies/glad/include" />
+					<Add directory="Dependencies/glfw/include" />
 				</Compiler>
 				<Linker>
                     <Add library="gdi32" />
@@ -30,7 +31,8 @@
 				<Compiler>
 					<Add option="-std=c++11" />
 					<Add option="-O2 -Wall" />
-					<Add directory="include" />
+					<Add directory="Dependencies/glad/include" />
+					<Add directory="Dependencies/glfw/include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -56,11 +58,26 @@
 			<Add library="Dependencies/glfw-WIN_64/lib-mingw/libglfw3.a" />
 			<Add library="Dependencies/glfw-WIN_64/lib-mingw/libglfw3dll.a" />
 		</Linker>
-	            <Unit filename="include/glad/glad.h"></Unit>
-	            <Unit filename="include/glad/glad.c"></Unit>
-	            <Unit filename="include/KHR/khrplatform.h"></Unit>
-                <Unit filename="include/GLFW/glfw3.h"></Unit>
-                <Unit filename="include/GLFW/glfw3native.h"></Unit>
+	            <Unit filename="Dependencies/glad/include/glad/glad.h"></Unit>
+	            <Unit filename="Dependencies/glad/src/glad.c"></Unit>
+	            <Unit filename="Dependencies/glad/include/KHR/khrplatform.h"></Unit>
+                <Unit filename="Dependencies/glfw/include/GLFW/glfw3.h"></Unit>
+                <Unit filename="Dependencies/glfw/include/GLFW/glfw3native.h"></Unit>
+                <Unit filename="Dependencies/glfw/include/GLFW/glfw3native.h"></Unit>
+                <Unit filename="src/IMGui/imconfig.h"/>
+                <Unit filename="src/IMGui/imgui_demo.cpp"/>
+                <Unit filename="src/IMGui/imgui_draw.cpp"/>
+                <Unit filename="src/IMGui/imgui_impl_glfw.cpp"/>
+                <Unit filename="src/IMGui/imgui_impl_glfw.h"/>
+                <Unit filename="src/IMGui/imgui_impl_opengl3.cpp"/>
+                <Unit filename="src/IMGui/imgui_impl_opengl3.h"/>
+                <Unit filename="src/IMGui/imgui_internal.h"/>
+                <Unit filename="src/IMGui/imgui_widgets.cpp"/>
+                <Unit filename="src/IMGui/imgui.cpp"/>
+                <Unit filename="src/IMGui/imgui.h"/>
+                <Unit filename="src/IMGui/imstb_rectpack.h"/>
+                <Unit filename="src/IMGui/imstb_textedit.h"/>
+                <Unit filename="src/IMGui/imstb_truetype.h"/>
                 <Unit filename="src/main.cpp"></Unit>
                 <Unit filename="src/FileLoader.cpp"></Unit>
                 <Unit filename="src/FileLoader.h"></Unit>
@@ -76,10 +93,33 @@
                 <Unit filename="src/Bitmap/Bitmap.cpp"></Unit>
                 <Unit filename="src/Camera/Camera.cpp"></Unit>
                 <Unit filename="src/Camera/Camera.h"></Unit>
+                <Unit filename="src/Camera/CameraMovement.cpp"></Unit>
+                <Unit filename="src/Camera/CameraMovement.h"></Unit>
                 <Unit filename="src/Vectors/Matrix.h"></Unit>
                 <Unit filename="src/Vectors/Vector2.h"></Unit>
                 <Unit filename="src/Vectors/Vector3.h"></Unit>
                 <Unit filename="src/Vectors/Vector4.h"></Unit>
+                <Unit filename="src/ObjectGL.h"></Unit>
+                <Unit filename="src/ObjectGL.cpp"></Unit>
+                <Unit filename="src/Base/CanvasObject.cpp"/>
+                <Unit filename="src/Base/CanvasObject.h"/>
+                <Unit filename="src/Base/Interfaces/ITransformable.h"/>
+                <Unit filename="src/Base3DObjects/Cylinder.cpp"/>
+                <Unit filename="src/Base3DObjects/Cylinder.h"/>
+                <Unit filename="src/Base/3D/Object3D.cpp"/>
+                <Unit filename="src/Base/3D/Object3D.h"/>
+                <Unit filename="src/Base/3D/Transform.cpp"/>
+                <Unit filename="src/Base/3D/Transform.h"/>
+                <Unit filename="src/Base3DObjects/OpenEndedCylinder.cpp"/>
+                <Unit filename="src/Base3DObjects/OpenEndedCylinder.h"/>
+                <Unit filename="src/Base3DObjects/ModelLoader.cpp"/>
+                <Unit filename="src/Base3DObjects/ModelLoader.h"/>
+                <Unit filename="src/Managers/GlobalManager.cpp"/>
+                <Unit filename="src/Managers/GlobalManager.h"/>
+                <Unit filename="src/TmpObject.cpp"/>
+                <Unit filename="src/TmpObject.h"/>
+                <Unit filename="src/Base/3D/ObjectFace.cpp"/>
+                <Unit filename="src/Base/3D/ObjectFace.h"/>
 		<Extensions>
 			<code_completion />
 			<debugger />

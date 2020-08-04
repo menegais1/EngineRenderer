@@ -15,13 +15,20 @@ private:
     dvec2 lastMousePosition;
     bool isDragging = false;
     dvec2 angle;
+
+    dvec3 eye;
+    dvec3 at;
+    dvec3 up;
 public:
 
     CameraMovement(Camera *camera);
 
-    void keyboard(int key) override;
 
-    void mouse(int button, int state, int wheel, int direction, int x, int y) override;
+    void keyboard(int key, int scancode, int action, int mods) override;
+
+    void mouseButton(int button, int action, int modifier) override;
+
+    void mouseMovement(double xpos, double ypos) override;
 
     void render() override;
 

@@ -13,6 +13,8 @@ public:
 
     static GLFWwindow *init(int width, int height, std::string title);
 
+    static void render(GLFWwindow *window);
+
 private:
     static void mouseButtonCallback(GLFWwindow *window, int button, int action, int modifier);
 
