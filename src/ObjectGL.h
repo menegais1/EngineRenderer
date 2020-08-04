@@ -34,6 +34,9 @@ public:
     ObjectGL(Shader shader,std::vector<fvec3> &vertices, std::vector<ObjectFace> &faces,
              std::vector<fvec3> &normals, std::vector<fvec3> &uvs);
 
+    GLenum renderType = GL_FILL;
+    GLenum primitiveType = GL_TRIANGLES;
+
     void setup();
 
     void render();

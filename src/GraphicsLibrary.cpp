@@ -7,7 +7,7 @@
 #include <iostream>
 #include "GraphicsLibrary.h"
 
-GLFWwindow * GraphicsLibrary::init(int width, int height, std::string title) {
+GLFWwindow *GraphicsLibrary::init(int width, int height, std::string title) {
 
     GLFWwindow *window;
 
@@ -18,7 +18,7 @@ GLFWwindow * GraphicsLibrary::init(int width, int height, std::string title) {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
     if (!window) {
         glfwTerminate();
         return nullptr;
@@ -34,7 +34,7 @@ GLFWwindow * GraphicsLibrary::init(int width, int height, std::string title) {
     std::cout << "OpenGL " << GLVersion.major << "." << GLVersion.minor << std::endl;
 
 
-    glViewport(0, 0, 640, 480);
+    glViewport(0, 0, width, height);
 
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetKeyCallback(window, keyCallback);

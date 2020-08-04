@@ -23,7 +23,22 @@ add_executable(RendererEngine
         src/Utilities.cpp
         src/Utilities.h
         src/ObjectGL.cpp
-        src/ObjectGL.h )
+        src/ObjectGL.h
+        src/IMGui/imgui_impl_glfw.cpp
+        src/IMGui/imgui_impl_glfw.h
+        src/IMGui/imgui_impl_opengl3.cpp
+        src/IMGui/imgui_impl_opengl3.h
+        src/IMGui/imconfig.h
+        src/IMGui/imgui.cpp
+        src/IMGui/imgui.h
+        src/IMGui/imgui_demo.cpp
+        src/IMGui/imgui_draw.cpp
+        src/IMGui/imgui_internal.h
+        src/IMGui/imgui_widgets.cpp
+        src/IMGui/imstb_rectpack.h
+        src/IMGui/imstb_textedit.h
+        src/IMGui/imstb_truetype.h
+        )
 include_directories(Dependencies/glfw/include)
 include_directories(Dependencies/glad/include)
 find_package(OpenGL REQUIRED)
