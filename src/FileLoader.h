@@ -8,8 +8,8 @@
 
 #include <string>
 
-#define CLION 0
-#define CODEBLOCKS 1
+#define CLION 1
+#define CODEBLOCKS 0
 
 
 #ifdef WINDOWS

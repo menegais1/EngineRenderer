@@ -15,6 +15,7 @@ public:
 
     Texture2D(GLenum glFormat, GLenum srcFormat, GLenum srcType, void *data, int width, int height);
 
+    Texture2D();
 };
 
 

@@ -14,3 +14,7 @@ Texture2D::Texture2D(GLenum glFormat, GLenum srcFormat, GLenum srcType, void *da
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexImage2D(GL_TEXTURE_2D, 0, glFormat, width, height, 0, srcFormat, srcType, data);
 }
+
+Texture2D::Texture2D() {
+
+}

@@ -23,7 +23,7 @@ add_executable(RendererEngine
         src/Utilities.cpp
         src/Utilities.h
 
-        )
+        src/ObjectGL.cpp src/ObjectGL.h src/Material.h src/Material.cpp)
 include_directories(Dependencies/glfw/include)
 include_directories(Dependencies/glad/include)
 find_package(OpenGL REQUIRED)
