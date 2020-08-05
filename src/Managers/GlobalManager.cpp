@@ -141,7 +141,7 @@ void GlobalManager::mouseButton(int button, int action, int modifier) {
 }
 
 void GlobalManager::mouseMovement(double xpos, double ypos) {
-    mousePosition = dvec2(xpos, screenHeight - ypos);
+    mousePosition = fvec2(xpos, screenHeight - ypos);
     std::vector<CanvasObject *> callbackCaller = objects;
     for (int i = callbackCaller.size() - 1; i >= 0; i--) {
         if (!callbackCaller[i]->checkIfCanExecuteCallback())

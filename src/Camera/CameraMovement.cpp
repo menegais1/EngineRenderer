@@ -33,37 +33,37 @@ void CameraMovement::keyboard(int key, int scancode, int action, int mods) {
     if (key == GLFW_KEY_W && camera->cameraType == CameraType::Perspective) {
         eye = camera->center + camera->forward * moveSpeed;
         at = camera->at + camera->forward * moveSpeed;
-        up = dvec3(0, 1, 0);
+        up = fvec3(0, 1, 0);
 
     } else if (key == GLFW_KEY_S && camera->cameraType == CameraType::Perspective) {
         eye = camera->center + camera->forward * -moveSpeed;
         at = camera->at + camera->forward * -moveSpeed;
-        up = dvec3(0, 1, 0);
+        up = fvec3(0, 1, 0);
     } else if (key == GLFW_KEY_D) {
         eye = camera->center + camera->right * moveSpeed;
         at = camera->at + camera->right * moveSpeed;
-        up = dvec3(0, 1, 0);
+        up = fvec3(0, 1, 0);
 
     } else if (key == GLFW_KEY_A) {
         eye = camera->center + camera->right * -moveSpeed;
         at = camera->at + camera->right * -moveSpeed;
-        up = dvec3(0, 1, 0);
+        up = fvec3(0, 1, 0);
     } else if (key == GLFW_KEY_Q) {
-        eye = camera->center + dvec3(0, 1, 0) * moveSpeed;
-        at = camera->at + dvec3(0, 1, 0) * moveSpeed;
-        up = dvec3(0, 1, 0);
+        eye = camera->center + fvec3(0, 1, 0) * moveSpeed;
+        at = camera->at + fvec3(0, 1, 0) * moveSpeed;
+        up = fvec3(0, 1, 0);
 
     } else if (key == GLFW_KEY_E) {
-        eye = camera->center + dvec3(0, 1, 0) * -moveSpeed;
-        at = camera->at + dvec3(0, 1, 0) * -moveSpeed;
-        up = dvec3(0, 1, 0);
+        eye = camera->center + fvec3(0, 1, 0) * -moveSpeed;
+        at = camera->at + fvec3(0, 1, 0) * -moveSpeed;
+        up = fvec3(0, 1, 0);
     }
 }
 
 void CameraMovement::mouseButton(int button, int action, int modifier) {
-    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+    if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS) {
         isDragging = true;
-    } else if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
+    } else if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_RELEASE) {
         isDragging = false;
     }
 }
@@ -84,14 +84,14 @@ void CameraMovement::mouseMovement(double xpos, double ypos) {
             angle.x = -90;
             yDelta = 0;
         }
-        auto RY = dMatrix::rotateY(-xDelta * PI / 180.0);
-        auto RX = dMatrix::rotateX((camera->forward.z < 0 ? yDelta : -yDelta) * PI / 180.0);
+        auto RY = fMatrix::rotateY(-xDelta * PI / 180.0);
+        auto RX = fMatrix::rotateX((camera->forward.z < 0 ? yDelta : -yDelta) * PI / 180.0);
         auto R = RX * RY;
-        dvec3 rotatedEye = (R * (camera->at - camera->center).toVector4(1)).toVector3() + camera->center;
-        dvec3 rotatedUp = (R * camera->up.toVector4(1)).toVector3();
+        fvec3 rotatedEye = (R * (camera->at - camera->center).toVector4(1)).toVector3() + camera->center;
+        fvec3 rotatedUp = (R * camera->up.toVector4(1)).toVector3();
         at = rotatedEye;
     }
-    lastMousePosition = dvec2(xpos, ypos);
+    lastMousePosition = fvec2(xpos, ypos);
 
 }
 

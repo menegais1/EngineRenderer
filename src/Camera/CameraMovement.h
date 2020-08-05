@@ -12,13 +12,13 @@
 class CameraMovement : public CanvasObject {
 private:
     Camera *camera;
-    dvec2 lastMousePosition;
+    fvec2 lastMousePosition;
     bool isDragging = false;
-    dvec2 angle;
+    fvec2 angle;
 
-    dvec3 eye;
-    dvec3 at;
-    dvec3 up;
+    fvec3 eye;
+    fvec3 at;
+    fvec3 up;
 public:
 
     CameraMovement(Camera *camera);

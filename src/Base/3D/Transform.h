@@ -10,11 +10,11 @@
 
 class Transform {
 public:
-    dvec3 position;
-    dvec3 rotation;
-    dvec3 scale;
+    fvec3 position;
+    fvec3 rotation;
+    fvec3 scale;
 
-    Transform(const dvec3 &position, const dvec3 &rotation, const dvec3 &scale);
+    Transform(const fvec3 &position, const fvec3 &rotation, const fvec3 &scale);
     Transform();
 };
 

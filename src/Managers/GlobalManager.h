@@ -34,7 +34,7 @@ public:
 
     int screenWidth;
     int screenHeight;
-    dvec2 mousePosition;
+    fvec2 mousePosition;
     float deltaTime;
     float time = 0;
     float fpsUpdateCycle = 0.25;

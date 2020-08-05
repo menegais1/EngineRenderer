@@ -11,9 +11,8 @@
 
 class TmpObject : public CanvasObject {
 public:
-    bool show_demo_window;
-    bool show_another_window;
-    bool clear_color;
+    bool show_demo_window = false;
+    bool show_another_window = false;
     ObjectGL *temp;
     Shader shader;
     Texture2D texture2D;

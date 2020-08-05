@@ -105,7 +105,7 @@ void Shader::setUniform(int location, fvec4 value) {
     glUniform4f(location, value.x, value.y, value.z, value.w);
 }
 
-void Shader::setUniform(int location, dMatrix value) {
+void Shader::setUniform(int location, fMatrix value) {
     //This cast to float is needed for some reason
     float values[16];
     int cont = 0;

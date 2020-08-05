@@ -21,8 +21,8 @@ ObjectInfo ModelLoader::loadObj(std::string filename) {
     FileString File = {fileString, 0, (int) fileString.length() - 1};
 
     ObjectInfo info;
-    std::vector<dvec3> normals;
-    std::vector<dvec3> uv;
+    std::vector<fvec3> normals;
+    std::vector<fvec3> uv;
 
     info.vertices = readVertices(File);
     info.uv = readTextureCoordinates(File);
@@ -32,10 +32,10 @@ ObjectInfo ModelLoader::loadObj(std::string filename) {
     return info;
 }
 
-std::vector<dvec3> ModelLoader::readVertices(FileString &file) {
+std::vector<fvec3> ModelLoader::readVertices(FileString &file) {
     std::string x, y, z;
     std::string s;
-    std::vector<dvec3> vertices;
+    std::vector<fvec3> vertices;
     while (true) {
         file.getLine(s, ' ');
         if (s.length() == 0)break;
@@ -49,16 +49,16 @@ std::vector<dvec3> ModelLoader::readVertices(FileString &file) {
         file.getLine(x, ' ');
         file.getLine(y, ' ');
         file.getLine(z, '\n');
-        vertices.push_back(dvec3(std::stod(x), std::stod(y), std::stod(z)));
+        vertices.push_back(fvec3(std::stod(x), std::stod(y), std::stod(z)));
     }
     return vertices;
 }
 
-std::vector<dvec3> ModelLoader::readTextureCoordinates(FileString &file) {
+std::vector<fvec3> ModelLoader::readTextureCoordinates(FileString &file) {
     std::string x, y, z;
     std::string s;
 
-    std::vector<dvec3> uv;
+    std::vector<fvec3> uv;
     while (true) {
         file.getLine(s, ' ');
         if (s.length() == 0)break;
@@ -71,16 +71,16 @@ std::vector<dvec3> ModelLoader::readTextureCoordinates(FileString &file) {
         }
         file.getLine(x, ' ');
         file.getLine(y, '\n');
-        uv.push_back(dvec3(std::stod(x), std::stod(y), 0));
+        uv.push_back(fvec3(std::stod(x), std::stod(y), 0));
     }
 
     return uv;
 }
 
-std::vector<dvec3> ModelLoader::readVerticesNormals(FileString &file) {
+std::vector<fvec3> ModelLoader::readVerticesNormals(FileString &file) {
     std::string x, y, z;
     std::string s;
-    std::vector<dvec3> normals;
+    std::vector<fvec3> normals;
     while (true) {
         file.getLine(s, ' ');
         if (s.length() == 0)break;
@@ -94,7 +94,7 @@ std::vector<dvec3> ModelLoader::readVerticesNormals(FileString &file) {
         file.getLine(x, ' ');
         file.getLine(y, ' ');
         file.getLine(z, '\n');
-        normals.push_back(dvec3(std::stod(x), std::stod(y), std::stod(z)));
+        normals.push_back(fvec3(std::stod(x), std::stod(y), std::stod(z)));
     }
     return normals;
 }

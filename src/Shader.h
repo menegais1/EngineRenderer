@@ -25,7 +25,7 @@ private:
 
     void setUniform(int location, fvec4 value);
 
-    void setUniform(int location, dMatrix value);
+    void setUniform(int location, fMatrix value);
 
 public:
 

@@ -32,37 +32,37 @@ enum MouseState {
     None = -2
 };
 
-bool isPointInsideBounds(dvec2 point, dvec2 position, dvec2 scale);
+bool isPointInsideBounds(fvec2 point, fvec2 position, fvec2 scale);
 
-bool isPointInsideCircle(dvec2 point, dvec2 center, float radius);
+bool isPointInsideCircle(fvec2 point, fvec2 center, float radius);
 
-int isLeft(dvec3 P0, dvec3 P1, dvec3 P2);
+int isLeft(fvec3 P0, fvec3 P1, fvec3 P2);
 
-bool isPointInsidePolygon(dvec2 P, std::vector<dvec3> vertices, int n);
+bool isPointInsidePolygon(fvec2 P, std::vector<fvec3> vertices, int n);
 
-std::vector<dvec3> generateSquare(dvec3 center, dvec3 scale);
+std::vector<fvec3> generateSquare(fvec3 center, fvec3 scale);
 
-std::vector<dvec3> generateCircle(dvec3 center, dvec3 scale, float sides);
+std::vector<fvec3> generateCircle(fvec3 center, fvec3 scale, float sides);
 
-std::vector<dvec3> generateTriangle(dvec3 center, dvec3 scale);
+std::vector<fvec3> generateTriangle(fvec3 center, fvec3 scale);
 
-std::vector<dvec3> generatePentagon(dvec3 center, dvec3 scale);
+std::vector<fvec3> generatePentagon(fvec3 center, fvec3 scale);
 
-std::vector<dvec3> generateHexagon(dvec3 center, dvec3 scale);
+std::vector<fvec3> generateHexagon(fvec3 center, fvec3 scale);
 
-dvec2 getMaximumAbsValue(std::vector<dvec2> values);
+fvec2 getMaximumAbsValue(std::vector<fvec2> values);
 
-dvec2 getMaximumValue(std::vector<dvec2> values);
+fvec2 getMaximumValue(std::vector<fvec2> values);
 
-dvec2 getMinimumValue(std::vector<dvec2> values);
+fvec2 getMinimumValue(std::vector<fvec2> values);
 
 bool leftMouseDown(int button, int state);
 
 bool leftMouseUp(int button, int state);
 
-dvec3 lerp(dvec3 x0, dvec3 x1, float t);
+fvec3 lerp(fvec3 x0, fvec3 x1, float t);
 
-dvec4 lerp(dvec4 x0, dvec4 x1, float t);
+fvec4 lerp(fvec4 x0, fvec4 x1, float t);
 
 float lerp(float v0, float v1, float t);
 
@@ -70,10 +70,10 @@ float clamp(float v0, float v1, float v);
 
 float round(float v0, float v1, float v);
 
-dvec3 RandomColorGenerator(float saturation, float brightness);
+fvec3 RandomColorGenerator(float saturation, float brightness);
 
-dvec3 HSVtoRGB(dvec3 hsv);
+fvec3 HSVtoRGB(fvec3 hsv);
 
-dvec2 rotatePoint2D(dvec2 point, float angle);
+fvec2 rotatePoint2D(fvec2 point, float angle);
 
 #endif

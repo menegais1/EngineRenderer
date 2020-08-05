@@ -53,6 +53,7 @@ void ObjectGL::setup() {
 }
 
 void ObjectGL::render() {
+    shader.activateShader();
     glBindVertexArray(VAO);
     glPolygonMode(GL_FRONT_AND_BACK, renderType);
     glDrawElements(primitiveType, elementBuffer.size(), GL_UNSIGNED_INT, 0);
@@ -65,4 +66,7 @@ void ObjectGL::dispose() {
 ObjectGL::ObjectGL(Shader shader, std::vector<fvec3> &vertices, std::vector<ObjectFace> &faces,
                    std::vector<fvec3> &normals, std::vector<fvec3> &uvs) : shader(shader), vertices(vertices),
                                                                            faces(faces), normals(normals),
-                                                                           uvs(uvs) {}
+                                                                           uvs(uvs) {
+
+    setup();
+}

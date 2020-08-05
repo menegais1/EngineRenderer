@@ -55,7 +55,10 @@ add_executable(RendererEngine
         src/TmpObject.cpp
         src/TmpObject.h
         src/Base/3D/ObjectFace.cpp
-        src/Base/3D/ObjectFace.h)
+        src/Base/3D/ObjectFace.h
+        src/Engine.cpp
+        src/Engine.h
+        )
 include_directories(Dependencies/glad/include)
 find_package(OpenGL REQUIRED)
 

@@ -16,32 +16,32 @@ enum class CameraType {
 class Camera {
 public:
 
-    dMatrix View;
-    dMatrix Projection;
+    fMatrix View;
+    fMatrix Projection;
 
     CameraType cameraType;
 
     static Camera *getInstance();
 
-    dMatrix generateViewMatrix(dvec3 eye, dvec3 at, dvec3 up);
+    fMatrix generateViewMatrix(fvec3 eye, fvec3 at, fvec3 up);
 
-    dMatrix generateProjectionMatrix(float fov, float aspectRatio, float near, float far);
+    fMatrix generateProjectionMatrix(float fov, float aspectRatio, float near, float far);
 
-    dvec3 convertNDCToViewport(dvec3 ndc);
+    fvec3 convertNDCToViewport(fvec3 ndc);
 
     void setViewport(int width, int height, int x, int y);
 
-    dvec3 convertWorldToView(dvec3 vertex);
+    fvec3 convertWorldToView(fvec3 vertex);
 
-    dMatrix generateOrtographicProjectionMatrix(float width, float height, float aspectRatio, float near, float far);
+    fMatrix generateOrtographicProjectionMatrix(float width, float height, float aspectRatio, float near, float far);
 
-    dvec4 convertViewToClipSpace(dvec3 vertex);
+    fvec4 convertViewToClipSpace(fvec3 vertex);
 
-    dvec3 convertClipSpaceToNDC(dvec4 vertex);
+    fvec3 convertClipSpaceToNDC(fvec4 vertex);
 
-    float clipLineSegmentOnNear(dvec4 p0, dvec4 p1, bool &p0Out, bool &p1Out);
+    float clipLineSegmentOnNear(fvec4 p0, fvec4 p1, bool &p0Out, bool &p1Out);
 
-    void line(dvec3 p0, dvec3 p1);
+    void line(fvec3 p0, fvec3 p1);
 
     float getNear() const;
 
@@ -55,11 +55,11 @@ public:
 
     float getHeight() const;
 
-    dvec3 center;
-    dvec3 up;
-    dvec3 forward;
-    dvec3 right;
-    dvec3 at;
+    fvec3 center;
+    fvec3 up;
+    fvec3 forward;
+    fvec3 right;
+    fvec3 at;
 private:
     int Vx;
     int Vy;

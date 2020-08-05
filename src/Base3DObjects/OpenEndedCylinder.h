@@ -10,7 +10,7 @@
 
 class OpenEndedCylinder : public Object3D {
 public:
-    OpenEndedCylinder(Transform transform, int sides);
+    OpenEndedCylinder(Transform transform, Shader shader);
 
 };
 

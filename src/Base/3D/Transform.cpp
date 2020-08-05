@@ -4,7 +4,7 @@
 
 #include "Transform.h"
 
-Transform::Transform(const dvec3 &position, const dvec3 &rotation, const dvec3 &scale) : position(position),
+Transform::Transform(const fvec3 &position, const fvec3 &rotation, const fvec3 &scale) : position(position),
                                                                                          rotation(rotation),
                                                                                          scale(scale) {}
 

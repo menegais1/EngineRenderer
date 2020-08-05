@@ -11,7 +11,7 @@
 
 class Cylinder : public Object3D {
 public:
-    Cylinder(Transform transform, int sides);
+    Cylinder(Transform transform, Shader shader);
 
 };
 

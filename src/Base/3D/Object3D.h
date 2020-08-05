@@ -10,35 +10,38 @@
 #include "Transform.h"
 #include "../../Bitmap/Bitmap.h"
 #include "../../Base3DObjects/ModelLoader.h"
+#include "../../ObjectGL.h"
 
 class Object3D : public CanvasObject {
 private:
     bool showFaceNormals = false;
     bool showVertexNormals = false;
-
+    ObjectGL *renderObject;
+    Shader shader;
 protected:
-    Object3D(Transform transform);
+    Object3D(Transform transform, Shader shader);
 
-    dMatrix Model;
-    dMatrix InvModel;
-    std::vector<dvec3> vertices;
+    fMatrix Model;
+    fMatrix InvModel;
+    std::vector<fvec3> vertices;
     std::vector<ObjectFace> faces;
-    std::vector<dvec3> normals;
-    std::vector<dvec3> uvs;
+    std::vector<fvec3> normals;
+    std::vector<fvec3> uvs;
 
     void computeCenter();
 
-    void setCenter(dvec3 center);
+    void setCenter(fvec3 center);
 
     void render() override;
 
+    void setupRendering();
 
 public:
     Transform transform;
 
-    dvec3 calculateNormal(int i0, int i1, int i2);
+    fvec3 calculateNormal(int i0, int i1, int i2);
 
-    void setNormal(int i, dvec3 normal);
+    void setNormal(int i, fvec3 normal);
 
 };
 

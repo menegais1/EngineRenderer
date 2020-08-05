@@ -11,9 +11,9 @@
 #include "../Base/3D/ObjectFace.h"
 
 struct ObjectInfo {
-    std::vector<dvec3> vertices;
-    std::vector<dvec3> normals;
-    std::vector<dvec3> uv;
+    std::vector<fvec3> vertices;
+    std::vector<fvec3> normals;
+    std::vector<fvec3> uv;
     std::vector<ObjectFace> faces;
 };
 
@@ -45,11 +45,11 @@ private:
 
     static std::vector<ObjectFace> readFaces(FileString &file);
 
-    static std::vector<dvec3> readVerticesNormals(FileString &file);
+    static std::vector<fvec3> readVerticesNormals(FileString &file);
 
-    static std::vector<dvec3> readVertices(FileString &file);
+    static std::vector<fvec3> readVertices(FileString &file);
 
-    static std::vector<dvec3> readTextureCoordinates(FileString &file);
+    static std::vector<fvec3> readTextureCoordinates(FileString &file);
 };
 
 

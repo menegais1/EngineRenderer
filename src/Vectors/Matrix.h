@@ -277,5 +277,6 @@ Vector4<T> Matrix<T>::toVector4() {
 
 
 typedef Matrix<double> dMatrix;
+typedef Matrix<float> fMatrix;
 
 #endif //TINYRENDERER_MATRIX_H

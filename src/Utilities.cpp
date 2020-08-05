@@ -5,12 +5,12 @@
 #include "Vectors/Vector2.h"
 #include "Vectors/Vector3.h"
 
-bool isPointInsideBounds(dvec2 point, dvec2 position, dvec2 scale) {
+bool isPointInsideBounds(fvec2 point, fvec2 position, fvec2 scale) {
     return point.x < position.x + scale.x && point.x > position.x && point.y < position.y + scale.y &&
            point.y > position.y;
 }
 
-int isLeft(dvec3 P0, dvec3 P1, dvec3 P2) {
+int isLeft(fvec3 P0, fvec3 P1, fvec3 P2) {
     return ((P1.x - P0.x) * (P2.y - P0.y) - (P2.x - P0.x) * (P1.y - P0.y));
 }
 
@@ -18,7 +18,7 @@ int isLeft(dvec3 P0, dvec3 P1, dvec3 P2) {
 //Crossing number point in polygon algorithm implementation
 //This code is patterned after [Franklin, 2000]
 //Taken from http://geomalgorithms.com/a03-_inclusion.html
-bool isPointInsidePolygon(dvec2 P, std::vector<dvec3> vertices, int n) {
+bool isPointInsidePolygon(fvec2 P, std::vector<fvec3> vertices, int n) {
     int cn = 0; // the  crossing number counter
 
     // loop through all edges of the polygon
@@ -43,11 +43,11 @@ bool leftMouseUp(int button, int state) {
     return button == MouseButton::Left && state == MouseState::Up;
 }
 
-dvec3 lerp(dvec3 x0, dvec3 x1, float t) {
+fvec3 lerp(fvec3 x0, fvec3 x1, float t) {
     return x0 * (1 - t) + x1 * t;
 }
 
-dvec4 lerp(dvec4 x0, dvec4 x1, float t) {
+fvec4 lerp(fvec4 x0, fvec4 x1, float t) {
     return x0 * (1 - t) + x1 * t;
 }
 
@@ -70,10 +70,10 @@ float round(float v0, float v1, float v) {
 
 }
 
-std::vector<dvec3> generateCircle(dvec3 center, dvec3 scale, float sides) {
+std::vector<fvec3> generateCircle(fvec3 center, fvec3 scale, float sides) {
     float ang, x1, y1;
     float inc = PI_2 / sides;
-    std::vector<dvec3> vertices;
+    std::vector<fvec3> vertices;
     for (ang = 0; ang < PI_2; ang += inc) {
         float x = (cos(ang) * scale.x);
         float y = (sin(ang) * scale.y);
@@ -83,11 +83,11 @@ std::vector<dvec3> generateCircle(dvec3 center, dvec3 scale, float sides) {
     return vertices;
 }
 
-bool isPointInsideCircle(dvec2 point, dvec2 center, float radius) {
+bool isPointInsideCircle(fvec2 point, fvec2 center, float radius) {
     return std::pow(point.x - center.x, 2) + std::pow(point.y - center.y, 2) <= std::pow(radius, 2);
 }
 
-dvec3 HSVtoRGB(dvec3 hsv) {
+fvec3 HSVtoRGB(fvec3 hsv) {
 
     double r = 0, g = 0, b = 0;
 
@@ -151,47 +151,47 @@ dvec3 HSVtoRGB(dvec3 hsv) {
 
     }
 
-    return dvec3(r, g, b);
+    return fvec3(r, g, b);
 }
 
-dvec3 RandomColorGenerator(float saturation, float brightness) {
+fvec3 RandomColorGenerator(float saturation, float brightness) {
     double rand = (std::rand() % 1000) / 1000.0;
     rand = std::min(360.0, rand * 360);
-    return HSVtoRGB(dvec3(rand, saturation, brightness));
+    return HSVtoRGB(fvec3(rand, saturation, brightness));
 }
 
-dvec2 getMaximumAbsValue(std::vector<dvec2> values) {
-    dvec2 max = dvec2(std::abs(values[0].x), std::abs(values[0].y));
+fvec2 getMaximumAbsValue(std::vector<fvec2> values) {
+    fvec2 max = fvec2(std::abs(values[0].x), std::abs(values[0].y));
     for (int i = 0; i < values.size(); ++i) {
-        dvec2 cur = values[i];
+        fvec2 cur = values[i];
         if (std::abs(cur.x) > max.x) max.x = std::abs(cur.x);
         if (std::abs(cur.y) > max.y) max.y = std::abs(cur.y);
     }
     return max;
 }
 
-dvec2 getMaximumValue(std::vector<dvec2> values) {
-    dvec2 max = dvec2(values[0].x, values[0].y);
+fvec2 getMaximumValue(std::vector<fvec2> values) {
+    fvec2 max = fvec2(values[0].x, values[0].y);
     for (int i = 0; i < values.size(); ++i) {
-        dvec2 cur = values[i];
+        fvec2 cur = values[i];
         if (cur.x > max.x) max.x = cur.x;
         if (cur.y > max.y) max.y = cur.y;
     }
     return max;
 }
 
-dvec2 getMinimumValue(std::vector<dvec2> values) {
-    dvec2 min = dvec2(values[0].x, values[0].y);
+fvec2 getMinimumValue(std::vector<fvec2> values) {
+    fvec2 min = fvec2(values[0].x, values[0].y);
     for (int i = 0; i < values.size(); ++i) {
-        dvec2 cur = values[i];
+        fvec2 cur = values[i];
         if (cur.x < min.x) min.x = cur.x;
         if (cur.y < min.y) min.y = cur.y;
     }
     return min;
 }
 
-dvec2 rotatePoint2D(dvec2 point, float angle) {
-    dvec2 rotatedPoint;
+fvec2 rotatePoint2D(fvec2 point, float angle) {
+    fvec2 rotatedPoint;
     rotatedPoint.x = std::cos(angle) * point.x - std::sin(angle) * point.y;
     rotatedPoint.y = std::sin(angle) * point.x + std::cos(angle) * point.y;
     return rotatedPoint;
