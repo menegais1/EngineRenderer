@@ -5,8 +5,8 @@
 #include "../Camera/Camera.h"
 #include "Cylinder.h"
 #include "../Utilities.h"
-#include "ModelLoader.h"
-#include "../FileLoader.h"
+#include "../FileManagers/ModelLoader.h"
+#include "../FileManagers/FileLoader.h"
 
 Cylinder::Cylinder(Transform transform, Shader shader) : Object3D(transform, shader) {
 

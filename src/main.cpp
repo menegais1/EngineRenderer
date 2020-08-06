@@ -1,13 +1,13 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "GraphicsLibrary.h"
+#include "Backend/GraphicsLibrary.h"
 #include "Vectors/Vector3.h"
-#include "Shader.h"
-#include "FileLoader.h"
+#include "Backend/Shader.h"
+#include "FileManagers/FileLoader.h"
 #include "Camera/Camera.h"
-#include "Bitmap/Bitmap.h"
-#include "Texture2D.h"
-#include "ObjectGL.h"
+#include "FileManagers/Bitmap/Bitmap.h"
+#include "Backend/Texture2D.h"
+#include "Backend/ObjectGL.h"
 #include "TmpObject.h"
 #include "Camera/CameraMovement.h"
 #include "Engine.h"
@@ -34,9 +34,9 @@ int main(void) {
     TmpObject *obj = new TmpObject(defaultShader);
     obj->texture2D = rustyMetal;
 
-    Cylinder *crank = new Cylinder(Transform(fvec3(4, 2, 0), fvec3(90, 0, 0), fvec3(0.2, 2, 0.2)), defaultShader);
+
     Engine *engine = new Engine(
-            Transform(fvec3(2, 0, 0), fvec3(0, 0, 0), fvec3(1, 1, 1)), defaultShader, crank);
+            Transform(fvec3(2, 0, 0), fvec3(0, 0, 0), fvec3(1, 1, 1)), defaultShader);
     engine->rpm = 5000;
     while (!glfwWindowShouldClose(window)) {
 

@@ -5,24 +5,24 @@ set(CMAKE_CXX_STANDARD 14)
 add_executable(RendererEngine
         Dependencies/glad/src/glad.c
         src/main.cpp
-        src/GraphicsLibrary.cpp
-        src/GraphicsLibrary.h
-        src/Shader.cpp
-        src/Shader.h
-        src/FileLoader.cpp
-        src/FileLoader.h
+        src/Backend/GraphicsLibrary.cpp
+        src/Backend/GraphicsLibrary.h
+        src/Backend/Shader.cpp
+        src/Backend/Shader.h
+        src/FileManagers/FileLoader.cpp
+        src/FileManagers/FileLoader.h
         src/Camera/Camera.h
         src/Camera/Camera.cpp
         src/Camera/CameraMovement.cpp
         src/Camera/CameraMovement.h
-        src/Texture2D.cpp
-        src/Texture2D.h
-        src/Bitmap/Bitmap.h
-        src/Bitmap/Bitmap.cpp
+        src/Backend/Texture2D.cpp
+        src/Backend/Texture2D.h
+        src/FileManagers/Bitmap/Bitmap.h
+        src/FileManagers/Bitmap/Bitmap.cpp
         src/Utilities.cpp
         src/Utilities.h
-        src/ObjectGL.cpp
-        src/ObjectGL.h
+        src/Backend/ObjectGL.cpp
+        src/Backend/ObjectGL.h
         src/IMGui/imconfig.h
         src/IMGui/imgui_demo.cpp
         src/IMGui/imgui_draw.cpp
@@ -48,8 +48,8 @@ add_executable(RendererEngine
         src/Base/3D/Transform.h
         src/Base3DObjects/OpenEndedCylinder.cpp
         src/Base3DObjects/OpenEndedCylinder.h
-        src/Base3DObjects/ModelLoader.cpp
-        src/Base3DObjects/ModelLoader.h
+        src/FileManagers/ModelLoader.cpp
+        src/FileManagers/ModelLoader.h
         src/Managers/GlobalManager.cpp
         src/Managers/GlobalManager.h
         src/TmpObject.cpp

@@ -6,7 +6,7 @@
 #define RENDERERENGINE_TEXTURE2D_H
 
 
-#include "Vectors/Vector3.h"
+#include "../Vectors/Vector3.h"
 #include <glad/glad.h>
 
 class Texture2D {

@@ -2,14 +2,14 @@
 // Created by menegais1 on 01/08/2020.
 //
 
-#include "IMGui/imgui.h"
-#include "IMGui/imgui_impl_glfw.h"
-#include "IMGui/imgui_impl_opengl3.h"
+#include "../IMGui/imgui.h"
+#include "../IMGui/imgui_impl_glfw.h"
+#include "../IMGui/imgui_impl_opengl3.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include "GraphicsLibrary.h"
-#include "Managers/GlobalManager.h"
+#include "../Managers/GlobalManager.h"
 
 
 void setupIMGui(GLFWwindow *window) {
@@ -66,6 +66,7 @@ GLFWwindow *GraphicsLibrary::init(int width, int height, std::string title) {
     glfwSetMouseButtonCallback(window, mouseButtonCallback);
     glfwSwapInterval(0);
     setupIMGui(window);
+    glEnable(GL_DEPTH_TEST);
     return window;
 }
 
@@ -90,7 +91,7 @@ void GraphicsLibrary::mouseButtonCallback(GLFWwindow *window, int button, int ac
 
 void GraphicsLibrary::render(GLFWwindow *window) {
     glClearColor(1, 1, 1, 1);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // Start the Dear ImGui frame
     ImGui_ImplOpenGL3_NewFrame();

@@ -8,19 +8,18 @@
 
 #include "../CanvasObject.h"
 #include "Transform.h"
-#include "../../Bitmap/Bitmap.h"
-#include "../../Base3DObjects/ModelLoader.h"
-#include "../../ObjectGL.h"
+#include "../../FileManagers/ModelLoader.h"
+#include "../../Backend/ObjectGL.h"
 
 class Object3D : public CanvasObject {
 private:
     bool showFaceNormals = false;
     bool showVertexNormals = false;
     ObjectGL *renderObject;
-    Shader shader;
 protected:
     Object3D(Transform transform, Shader shader);
 
+    Shader shader;
     fMatrix Model;
     fMatrix InvModel;
     std::vector<fvec3> vertices;
@@ -43,6 +42,7 @@ public:
 
     void setNormal(int i, fvec3 normal);
 
+    void setShader(Shader shader);
 };
 
 

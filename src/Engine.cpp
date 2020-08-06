@@ -9,6 +9,7 @@
 #include "Managers/GlobalManager.h"
 #include "Engine.h"
 #include "Base3DObjects/OpenEndedCylinder.h"
+#include "FileManagers/FileLoader.h"
 #include <GLFW/glfw3.h>
 
 float Engine::calculateAngularVelocity(float rpm) {
@@ -39,7 +40,6 @@ fvec3 Engine::calculatePistonRotation(Object3D *piston, fvec3 pinPosition, fvec3
 };
 
 void Engine::render() {
-    Object3D::render();
     angularVelocity = calculateAngularVelocity(rpm);
     crank->transform.rotation.z += angularVelocity * GlobalManager::getInstance()->deltaTime;
     float radius = crank->transform.scale.z;
@@ -56,11 +56,17 @@ void Engine::render() {
         pistons[i]->transform.rotation = pistonRotation;
         pistonPins[i]->transform.position = pinPosition;
     }
+    shader.activateShader();
+    shader.setUniform("UNIFORM_lightPosition", fvec3(0, 2, 0));
+    Object3D::render();
 }
 
-Engine::Engine(Transform transform,Shader shader, Cylinder *crank) : Object3D(transform,shader) {
+Engine::Engine(Transform transform, Shader shader) : Object3D(transform, shader) {
     rpm = 100;
-    this->crank = crank;
+    Shader goraudShader(Shader::createVertexShader(FileLoader::getPath("Resources/Shaders/Goraud/GoraudVertex.glsl")),
+                        Shader::createFragmentShader(FileLoader::getPath("Resources/Shaders/Goraud/GoraudFragment.glsl")));
+    shader = goraudShader;
+    this->crank = new Cylinder(Transform(fvec3(4, 2, 0), fvec3(90, 0, 0), fvec3(0.2, 2, 0.2)), shader);
     pistons.push_back(new Cylinder(Transform(crank->transform.position + fvec3(0, crank->transform.scale.z + 1,
                                                                                crank->transform.position.z +
                                                                                crank->transform.scale.y / 2),
@@ -68,7 +74,7 @@ Engine::Engine(Transform transform,Shader shader, Cylinder *crank) : Object3D(tr
     pistonPins.push_back(new Cylinder(Transform(crank->transform.position + fvec3(0, crank->transform.scale.z + 1,
                                                                                   crank->transform.position.z +
                                                                                   crank->transform.scale.y / 2),
-                                                fvec3(0, 0, 0), fvec3(0.3, 0.5, 0.3)),shader));
+                                                fvec3(0, 0, 0), fvec3(0.3, 0.5, 0.3)), shader));
 
     float radius = crank->transform.scale.z;
     float l = pistons[0]->transform.scale.y;

@@ -8,7 +8,7 @@
 
 #include <string>
 #include <glad/glad.h>
-#include "Vectors/Vector2.h"
+#include "../Vectors/Vector2.h"
 
 class Shader {
 private:

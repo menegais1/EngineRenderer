@@ -19,8 +19,8 @@
 #include <vector>
 #include <fstream>
 #include <iostream>
-#include "../Vectors/Vector3.h"
-#include "../Utilities.h"
+#include "../../Vectors/Vector3.h"
+#include "../../Utilities.h"
 
 
 class FileHeader {

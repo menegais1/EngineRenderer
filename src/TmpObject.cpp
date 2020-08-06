@@ -4,14 +4,14 @@
 
 #include "TmpObject.h"
 #include "IMGui/imgui.h"
-#include "Base3DObjects/ModelLoader.h"
+#include "FileManagers/ModelLoader.h"
 #include "Camera/Camera.h"
 
 void TmpObject::render() {
+    shader.activateShader();
     texture2D.activateTexture(1);
     shader.setUniform("UNIFORM_MVP",  Camera::getInstance()->Projection * Camera::getInstance()->View *fMatrix::identity(4));
     shader.setUniform("UNIFORM_texture", 1);
-    shader.activateShader();
     temp->render();
 
     {

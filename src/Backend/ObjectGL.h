@@ -9,28 +9,28 @@
 #include <glad/glad.h>
 #include "Texture2D.h"
 #include "Shader.h"
-#include "Base3DObjects/ModelLoader.h"
-#include "Base/3D/ObjectFace.h"
+#include "../FileManagers/ModelLoader.h"
+#include "../Base/3D/ObjectFace.h"
 
 class ObjectGL {
 private:
     GLuint VBO;
     GLuint VAO;
     GLuint EBO;
+    bool initialized = false;
     std::vector<float> vertexBuffer;
     std::vector<unsigned int> elementBuffer;
     std::vector<fvec3> &vertices;
     std::vector<ObjectFace> &faces;
     std::vector<fvec3> &normals;
     std::vector<fvec3> &uvs;
-    Shader shader;
 public:
     ObjectGL(Shader shader,std::vector<fvec3> &vertices, std::vector<ObjectFace> &faces,
              std::vector<fvec3> &normals, std::vector<fvec3> &uvs);
 
     GLenum renderType = GL_FILL;
     GLenum primitiveType = GL_TRIANGLES;
-
+    Shader shader;
     void setup();
 
     void render();

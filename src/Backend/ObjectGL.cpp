@@ -5,12 +5,19 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "ObjectGL.h"
-#include "Camera/Camera.h"
-#include "Bitmap/Bitmap.h"
+#include "../Camera/Camera.h"
 #include "Texture2D.h"
-#include "FileLoader.h"
+#include "../FileManagers/FileLoader.h"
 
 void ObjectGL::setup() {
+
+    if (!initialized) {
+        glGenVertexArrays(1, &VAO);
+        glGenBuffers(1, &VBO);
+        glGenBuffers(1, &EBO);
+        elementBuffer.clear();
+        vertexBuffer.clear();
+    }
 
     int cont = 0;
     for (int i = 0; i < this->faces.size(); ++i) {
@@ -34,18 +41,18 @@ void ObjectGL::setup() {
     float *verts = vertexBuffer.data();
     unsigned int *elements = elementBuffer.data();
 
-    glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
-    glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, vertexBuffer.size() * sizeof(float), verts, GL_STATIC_DRAW);
-    glVertexAttribPointer(glGetAttribLocation(shader.shaderProgram, "vertex_position"), 3, GL_FLOAT, GL_FALSE,
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,
                           sizeof(fvec3) * 3, 0);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(glGetAttribLocation(shader.shaderProgram, "vertex_uv"), 3, GL_FLOAT, false,
-                          sizeof(fvec3) * 3, (void *) (sizeof(fvec3) * 2));
+    glVertexAttribPointer(1, 3, GL_FLOAT, false,
+                          sizeof(fvec3) * 3, (void *) (sizeof(fvec3)));
     glEnableVertexAttribArray(1);
-    glGenBuffers(1, &EBO);
+    glVertexAttribPointer(2, 3, GL_FLOAT, false,
+                          sizeof(fvec3) * 3, (void *) (sizeof(fvec3) * 2));
+    glEnableVertexAttribArray(2);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementBuffer.size() * sizeof(unsigned int), elements, GL_STATIC_DRAW);
     glBindVertexArray(0);

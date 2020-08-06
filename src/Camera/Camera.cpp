@@ -5,7 +5,6 @@
 #include "Camera.h"
 #include <cmath>
 //#include "../Utilities.h"
-//#include "../Rendering/Canvas/gl_canvas2d.h"
 
 fMatrix Camera::generateViewMatrix(fvec3 eye, fvec3 at, fvec3 up) {
     fvec3 forward = (eye - at).unit();
@@ -35,7 +34,7 @@ fMatrix Camera::generateProjectionMatrix(float fov, float aspectRatio, float _ne
     fMatrix P = fMatrix::identity(4);
     P.m = {{1.0 / (std::tan(fov / 2.0) * aspectRatio), 0,                         0,                                       0},
            {0,                                         1.0 / std::tan(fov / 2.0), 0,                                       0},
-           {0,                                         0,                         (_near + _far) / (float) (_far - _near), (2 * _near * _far) / (float) (_far - _near)},
+           {0,                                         0,                       ( - (_near + _far) )/ (float) (_far - _near), (-2 * _near * _far) / (float) (_far - _near)},
            {0,                                         0,                         -1,                                      0}};
     Projection = P;
 
@@ -53,7 +52,7 @@ Camera::generateOrtographicProjectionMatrix(float width, float height, float asp
     fMatrix P = fMatrix::identity(4);
     P.m = {{1.0 / ((height * aspectRatio)), 0,                  0,                    0},
            {0,                                  1.0 / (height), 0,                    0},
-           {0,                                  0,                  2.0 / (_far - _near), (_near + _far) /
+           {0,                                  0,                  -2.0 / (_far - _near), -(_near + _far) /
                                                                                           (_far - _near)},
            {0,                                  0,                  0,                    1}};
     Projection = P;

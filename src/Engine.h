@@ -11,7 +11,7 @@
 class Engine : public Object3D {
 public:
 
-    Engine(Transform transform,Shader shader, Cylinder *crank);
+    Engine(Transform transform,Shader shader);
 
     Object3D *crank;
     std::vector<Object3D *> pistonPins;

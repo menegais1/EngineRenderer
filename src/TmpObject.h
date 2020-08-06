@@ -7,7 +7,7 @@
 
 
 #include "Base/CanvasObject.h"
-#include "ObjectGL.h"
+#include "Backend/ObjectGL.h"
 
 class TmpObject : public CanvasObject {
 public:

@@ -58,8 +58,15 @@ void Object3D::render() {
     fvec3 cameraPos = (InvModel * Camera::getInstance()->center).toVector3();
     int cont = 0;
 
+    shader.activateShader();
     shader.setUniform("UNIFORM_MVP",Camera::getInstance()->Projection * Camera::getInstance()->View * Model);
+    shader.setUniform("UNIFORM_InverseModel",Model.invert());
     renderObject->render();
+}
+
+void Object3D::setShader(Shader shader){
+    this->shader = shader;
+    renderObject->shader = shader;
 }
 
 void Object3D::setupRendering() {

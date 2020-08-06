@@ -4,9 +4,8 @@
 
 #include "OpenEndedCylinder.h"
 #include "../Base/3D/Transform.h"
-#include "ModelLoader.h"
-#include "../Bitmap/Bitmap.h"
-#include "../FileLoader.h"
+#include "../FileManagers/ModelLoader.h"
+#include "../FileManagers/FileLoader.h"
 
 
 OpenEndedCylinder::OpenEndedCylinder(Transform transform, Shader shader) : Object3D(transform, shader) {
