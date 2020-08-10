@@ -56,7 +56,6 @@ void Object3D::render() {
     Model = T * Rz * Ry * Rx * S;
     InvModel = Model.invert();
     fvec3 cameraPos = (InvModel * Camera::getInstance()->center).toVector3();
-    int cont = 0;
 
     shader.activateShader();
     shader.setUniform("UNIFORM_MVP",Camera::getInstance()->Projection * Camera::getInstance()->View * Model);

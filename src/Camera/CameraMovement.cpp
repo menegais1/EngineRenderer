@@ -7,6 +7,7 @@
 #include "CameraMovement.h"
 #include "../Utilities.h"
 #include "../Managers/GlobalManager.h"
+#include "../Backend/GraphicsLibrary.h"
 #include <GLFW/glfw3.h>
 
 
@@ -97,5 +98,9 @@ void CameraMovement::mouseMovement(double xpos, double ypos) {
 
 void CameraMovement::render() {
     camera->generateViewMatrix(eye, at, up);
+
+    GraphicsLibrary::line(fvec3(0,0,0),fvec3(10,0,0));
+    GraphicsLibrary::line(fvec3(0,0,0),fvec3(0,10,0));
+    GraphicsLibrary::line(fvec3(0,0,0),fvec3(0,0,10));
 }
 

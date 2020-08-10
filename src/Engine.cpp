@@ -71,6 +71,8 @@ void Engine::render() {
         ImGui::Checkbox("Show Crank", &showCrank);
         ImGui::Checkbox("Wireframe", &showWireframe);
         ImGui::SliderInt("Piston Quantity", &pistonQuantity, 1, 3);
+        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+
         ImGui::End();
     }
     setPistonQuantity(pistonQuantity);
@@ -80,9 +82,6 @@ void Engine::render() {
     shader.setUniform("UNIFORM_lightPosition", lightPosition);
     shader.setUniform("UNIFORM_texture", 0);
     shader.setUniform("UNIFORM_useTexture", (int) useTexture);
-    GraphicsLibrary::line(fvec3(0,0,0),fvec3(10,0,0));
-    GraphicsLibrary::line(fvec3(0,0,0),fvec3(0,10,0));
-    GraphicsLibrary::line(fvec3(0,0,0),fvec3(0,0,10));
     Object3D::render();
 }
 
@@ -159,7 +158,7 @@ void Engine::setPistonQuantity(int pistonQuantity) {
     crank->setActive(showCrank);
     if (showWireframe) {
         crank->setRenderType(GL_LINE);
-    }else{
+    } else {
         crank->setRenderType(GL_FILL);
     }
 }
