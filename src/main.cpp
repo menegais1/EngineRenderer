@@ -38,6 +38,7 @@ int main(void) {
     Engine *engine = new Engine(
             Transform(fvec3(2, 0, 0), fvec3(0, 0, 0), fvec3(1, 1, 1)), defaultShader);
     engine->rpm = 5000;
+    engine->diffuse = rustyMetal;
     while (!glfwWindowShouldClose(window)) {
 
         GraphicsLibrary::render(window);

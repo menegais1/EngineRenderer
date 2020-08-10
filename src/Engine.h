@@ -18,7 +18,8 @@ public:
     std::vector<Object3D *> pistons;
     std::vector<Object3D *> shirts;
     float rpm;
-
+    Texture2D diffuse;
+    bool useTexture = true;
     void keyboard(int key, int scancode, int action, int mods) override;
 
 private:
@@ -28,12 +29,11 @@ private:
     bool showPistons = true;
     bool showPistonPins = true;
     bool showCrank = true;
-
+    bool showWireframe = false;
+    int pistonQuantity = 1;
     float angularVelocity;
 
     void render() override;
-
-    int pistonQuantity = 1;
 
     float calculateAngularVelocity(float rpm);
 
@@ -42,6 +42,8 @@ private:
     fvec3 calculatePistonPosition(Object3D *piston, float radius, float angle) const;
 
     fvec3 calculatePistonRotation(Object3D *piston, fvec3 pinPosition, fvec3 pinOnCrankPosition);
+
+    void setPistonQuantity(int pistonQuantity);
 };
 
 

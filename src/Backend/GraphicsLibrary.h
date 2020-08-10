@@ -7,6 +7,8 @@
 
 
 #include <string>
+#include "../Vectors/Vector3.h"
+#include <GLFW/glfw3.h>
 
 class GraphicsLibrary {
 public:
@@ -14,6 +16,8 @@ public:
     static GLFWwindow *init(int width, int height, std::string title);
 
     static void render(GLFWwindow *window);
+
+    static void line(fvec3 p0, fvec3 p1, fvec4 color = fvec4(1, 1, 1, 1));
 
 private:
     static void mouseButtonCallback(GLFWwindow *window, int button, int action, int modifier);

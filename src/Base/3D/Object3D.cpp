@@ -72,3 +72,8 @@ void Object3D::setShader(Shader shader){
 void Object3D::setupRendering() {
     renderObject = new ObjectGL(shader, vertices, faces, normals, uvs);
 }
+
+void Object3D::setRenderType(int renderType) {
+    if(renderObject == nullptr) return;
+    renderObject->renderType = renderType;
+}

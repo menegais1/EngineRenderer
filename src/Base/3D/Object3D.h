@@ -15,10 +15,10 @@ class Object3D : public CanvasObject {
 private:
     bool showFaceNormals = false;
     bool showVertexNormals = false;
-    ObjectGL *renderObject;
 protected:
     Object3D(Transform transform, Shader shader);
 
+    ObjectGL *renderObject;
     Shader shader;
     fMatrix Model;
     fMatrix InvModel;
@@ -43,6 +43,8 @@ public:
     void setNormal(int i, fvec3 normal);
 
     void setShader(Shader shader);
+
+    void setRenderType(int renderType);
 };
 
 

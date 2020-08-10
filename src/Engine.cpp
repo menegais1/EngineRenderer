@@ -10,6 +10,8 @@
 #include "Engine.h"
 #include "Base3DObjects/OpenEndedCylinder.h"
 #include "FileManagers/FileLoader.h"
+#include "IMGui/imgui.h"
+#include "Backend/GraphicsLibrary.h"
 #include <GLFW/glfw3.h>
 
 float Engine::calculateAngularVelocity(float rpm) {
@@ -39,6 +41,8 @@ fvec3 Engine::calculatePistonRotation(Object3D *piston, fvec3 pinPosition, fvec3
     return rotation;
 };
 
+fvec3 lightPosition = fvec3(0, 2, 0);
+
 void Engine::render() {
     angularVelocity = calculateAngularVelocity(rpm);
     crank->transform.rotation.z += angularVelocity * GlobalManager::getInstance()->deltaTime;
@@ -56,8 +60,26 @@ void Engine::render() {
         pistons[i]->transform.rotation = pistonRotation;
         pistonPins[i]->transform.position = pinPosition;
     }
+
+    {
+        ImGui::Begin("Engine Control");
+        ImGui::SliderFloat("RPM", &rpm, 0.0f, 10000.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+        ImGui::Checkbox("Use Texture", &useTexture);
+        ImGui::Checkbox("Show Pistons", &showPistons);
+        ImGui::Checkbox("Show Piston Pins", &showPistonPins);
+        ImGui::Checkbox("Show Shirts", &showShirts);
+        ImGui::Checkbox("Show Crank", &showCrank);
+        ImGui::Checkbox("Wireframe", &showWireframe);
+        ImGui::SliderInt("Piston Quantity", &pistonQuantity, 1, 3);
+        ImGui::End();
+    }
+    setPistonQuantity(pistonQuantity);
     shader.activateShader();
-    shader.setUniform("UNIFORM_lightPosition", fvec3(0, 2, 0));
+    glUseProgram(shader.shaderProgram);
+    diffuse.activateTexture(0);
+    shader.setUniform("UNIFORM_lightPosition", lightPosition);
+    shader.setUniform("UNIFORM_texture", 0);
+    shader.setUniform("UNIFORM_useTexture", (int) useTexture);
     Object3D::render();
 }
 
@@ -66,6 +88,7 @@ Engine::Engine(Transform transform, Shader shader) : Object3D(transform, shader)
     Shader goraudShader(Shader::createVertexShader(FileLoader::getPath("Resources/Shaders/Goraud/GoraudVertex.glsl")),
                         Shader::createFragmentShader(FileLoader::getPath("Resources/Shaders/Goraud/GoraudFragment.glsl")));
     shader = goraudShader;
+    this->shader = shader;
     this->crank = new Cylinder(Transform(fvec3(4, 2, 0), fvec3(90, 0, 0), fvec3(0.2, 2, 0.2)), shader);
     pistons.push_back(new Cylinder(Transform(crank->transform.position + fvec3(0, crank->transform.scale.z + 1,
                                                                                crank->transform.position.z +
@@ -106,70 +129,39 @@ Engine::Engine(Transform transform, Shader shader) : Object3D(transform, shader)
 
 }
 
+void Engine::setPistonQuantity(int pistonQuantity) {
+    this->pistonQuantity = pistonQuantity;
+    for (int i = 0; i < pistonQuantity; ++i) {
+        pistons[i]->setActive(showPistons);
+        pistonPins[i]->setActive(showPistonPins);
+        shirts[i]->setActive(showShirts);
+    }
+    for (int i = pistonQuantity; i < pistons.size(); ++i) {
+        pistons[i]->setActive(false);
+        pistonPins[i]->setActive(false);
+        shirts[i]->setActive(false);
+    }
+
+    for (int i = 0; i < pistons.size(); ++i) {
+        if (showWireframe) {
+            pistons[i]->setRenderType(GL_LINE);
+            pistonPins[i]->setRenderType(GL_LINE);
+            shirts[i]->setRenderType(GL_LINE);
+        } else {
+            pistons[i]->setRenderType(GL_FILL);
+            pistonPins[i]->setRenderType(GL_FILL);
+            shirts[i]->setRenderType(GL_FILL);
+        }
+    }
+    crank->setActive(showCrank);
+    if (showWireframe) {
+        crank->setRenderType(GL_LINE);
+    }else{
+        crank->setRenderType(GL_FILL);
+    }
+}
+
 void Engine::keyboard(int key, int scancode, int action, int mods) {
-    if (key == GLFW_KEY_1) {
-        pistonQuantity = 1;
-        for (int i = 0; i < 1; ++i) {
-            pistons[i]->setActive(showPistons);
-            pistonPins[i]->setActive(showPistonPins);
-            shirts[i]->setActive(showShirts);
-        }
-        for (int i = 1; i < pistons.size(); ++i) {
-            pistons[i]->setActive(false);
-            pistonPins[i]->setActive(false);
-            shirts[i]->setActive(false);
-        }
-    }
-    if (key == GLFW_KEY_2) {
-        pistonQuantity = 2;
-        for (int i = 0; i < 2; ++i) {
-            pistons[i]->setActive(showPistons);
-            pistonPins[i]->setActive(showPistonPins);
-            shirts[i]->setActive(showShirts);
-        }
-        for (int i = 2; i < pistons.size(); ++i) {
-            pistons[i]->setActive(false);
-            pistonPins[i]->setActive(false);
-            shirts[i]->setActive(false);
-        }
-    }
-    if (key == GLFW_KEY_3) {
-        pistonQuantity = 3;
-        for (int i = 0; i < 3; ++i) {
-            pistons[i]->setActive(showPistons);
-            pistonPins[i]->setActive(showPistonPins);
-            shirts[i]->setActive(showShirts);
-        }
-        for (int i = 3; i < pistons.size(); ++i) {
-            pistons[i]->setActive(false);
-            pistonPins[i]->setActive(false);
-            shirts[i]->setActive(false);
-        }
-    }
-
-    if (key == GLFW_KEY_Z) {
-        showPistons = !showPistons;
-        for (int i = 0; i < pistonQuantity; ++i) {
-            pistons[i]->setActive(showPistons);
-        }
-    }
-    if (key == GLFW_KEY_X) {
-        showPistonPins = !showPistonPins;
-        for (int i = 0; i < pistonQuantity; ++i) {
-            pistonPins[i]->setActive(showPistonPins);
-        }
-    }
-    if (key == GLFW_KEY_C) {
-        showShirts = !showShirts;
-        for (int i = 0; i < pistonQuantity; ++i) {
-            shirts[i]->setActive(showShirts);
-        }
-    }
-    if (key == GLFW_KEY_V) {
-        showCrank = !showCrank;
-        crank->setActive(showCrank);
-
-    }
 
 //    if (key == GLFW_KEY_N) {
 //        showVertexNormals = !showVertexNormals;
