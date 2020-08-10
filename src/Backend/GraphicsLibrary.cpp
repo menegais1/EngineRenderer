@@ -115,21 +115,24 @@ void GraphicsLibrary::render(GLFWwindow *window) {
 }
 
 void GraphicsLibrary::line(fvec3 p0, fvec3 p1, fvec4 color) {
-    unsigned int VBO;
-    fvec3 *vertices = new fvec3[3]{fvec3(0, 0, 0), fvec3(1, 1, 0), fvec3(-1,1,0)};
-    glBindVertexArray(0);
+    unsigned int VBO, VAO;
+    std::vector<fvec3> vertices = {p0, p1};
+    glGenVertexArrays(1, &VAO);
+    glBindVertexArray(VAO);
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, 3* sizeof(fvec3), vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, 3 * sizeof(fvec3), vertices.data(), GL_STATIC_DRAW);
     static Shader shader = Shader(Shader::createVertexShader(FileLoader::getPath("Resources/Shaders/DefaultVertex.glsl")),
                                   Shader::createFragmentShader(FileLoader::getPath("Resources/Shaders/DefaultFragment.glsl")));
     shader.activateShader();
-    shader.setUniform("UNIFORM_MVP",fMatrix::identity(4)/*Camera::getInstance()->Projection * Camera::getInstance()->View*/);
+    shader.setUniform("UNIFORM_MVP", Camera::getInstance()->Projection * Camera::getInstance()->View);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(fvec3), (void *) 0);
     glEnableVertexAttribArray(0);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glDrawArrays(GL_LINE_STRIP, 0, 2);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     glDeleteBuffers(1, &VBO);
+    glDeleteVertexArrays(1, &VAO);
+
 }

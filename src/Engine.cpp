@@ -80,6 +80,9 @@ void Engine::render() {
     shader.setUniform("UNIFORM_lightPosition", lightPosition);
     shader.setUniform("UNIFORM_texture", 0);
     shader.setUniform("UNIFORM_useTexture", (int) useTexture);
+    GraphicsLibrary::line(fvec3(0,0,0),fvec3(10,0,0));
+    GraphicsLibrary::line(fvec3(0,0,0),fvec3(0,10,0));
+    GraphicsLibrary::line(fvec3(0,0,0),fvec3(0,0,10));
     Object3D::render();
 }
 
