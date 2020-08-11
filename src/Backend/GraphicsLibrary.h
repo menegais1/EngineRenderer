@@ -17,7 +17,9 @@ public:
 
     static void render(GLFWwindow *window);
 
-    static void line(fvec3 p0, fvec3 p1, fvec4 color = fvec4(1, 1, 1, 1));
+    static void screenSpaceLine(fvec2 p0, fvec2 p1, fvec4 color = fvec4(0, 0, 0, 1));
+
+    static void line(fvec3 p0, fvec3 p1, fvec4 color = fvec4(0, 0, 0, 1));
 
 private:
     static void mouseButtonCallback(GLFWwindow *window, int button, int action, int modifier);
@@ -27,6 +29,7 @@ private:
     static void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods);
 
     static void framebuffer_size_callback(GLFWwindow *window, int width, int height);
+
 };
 
 

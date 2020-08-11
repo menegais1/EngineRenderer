@@ -31,8 +31,8 @@ int main(void) {
     Camera::getInstance()->setViewport(width, height, 0, 0);
     CameraMovement *movement = new CameraMovement(Camera::getInstance());
 
-    TmpObject *obj = new TmpObject(defaultShader);
-    obj->texture2D = rustyMetal;
+//    TmpObject *obj = new TmpObject(defaultShader);
+//    obj->texture2D = rustyMetal;
 
 
     Engine *engine = new Engine(

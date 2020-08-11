@@ -23,12 +23,14 @@ void CameraMovement::keyboard(int key, int scancode, int action, int mods) {
 
     if (key == GLFW_KEY_O) {
         camera->cameraType = CameraType::Orthographic;
-        camera->generateOrtographicProjectionMatrix(camera->getWidth(), camera->getHeight(), camera->getAspectRatio(), camera->getNear(), camera->getFar());
+        camera->generateOrtographicProjectionMatrix(camera->getWidth(), camera->getHeight(), camera->getAspectRatio(),
+                                                    camera->getNear(), camera->getFar());
     }
 
     if (key == GLFW_KEY_P) {
         camera->cameraType = CameraType::Perspective;
-        Camera::getInstance()->generateProjectionMatrix(camera->getFov(), camera->getAspectRatio(), camera->getNear(), camera->getFar());
+        Camera::getInstance()->generateProjectionMatrix(camera->getFov(), camera->getAspectRatio(), camera->getNear(),
+                                                        camera->getFar());
     }
 
     if (key == GLFW_KEY_W && camera->cameraType == CameraType::Perspective) {

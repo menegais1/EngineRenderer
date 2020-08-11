@@ -114,6 +114,35 @@ void GraphicsLibrary::render(GLFWwindow *window) {
     glfwPollEvents();
 }
 
+void GraphicsLibrary::screenSpaceLine(fvec2 p0, fvec2 p1, fvec4 color) {
+    unsigned int VBO, VAO;
+    fvec3 screenCoordinates = fvec3(GlobalManager::getInstance()->screenWidth,
+                                    GlobalManager::getInstance()->screenWidth, 1);
+    fvec3 screenP0 = fvec3(p0.x / screenCoordinates.x - 1, p0.y / screenCoordinates.y- 1, 0);
+    fvec3 screenP1 = fvec3(p1.x / screenCoordinates.x - 1, p1.y / screenCoordinates.y- 1, 0);
+    std::vector<fvec3> vertices = {screenP0, screenP1};
+    glGenVertexArrays(1, &VAO);
+    glBindVertexArray(VAO);
+    glGenBuffers(1, &VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, 3 * sizeof(fvec3), vertices.data(), GL_STATIC_DRAW);
+    static Shader shader = Shader(
+            Shader::createVertexShader(FileLoader::getPath("Resources/Shaders/DefaultVertex.glsl")),
+            Shader::createFragmentShader(FileLoader::getPath("Resources/Shaders/DefaultFragment.glsl")));
+    shader.activateShader();
+    shader.setUniform("UNIFORM_MVP", fMatrix::identity(4));
+    shader.setUniform("UNIFORM_color", color);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(fvec3), (void *) 0);
+    glEnableVertexAttribArray(0);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glDrawArrays(GL_LINE_STRIP, 0, 2);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    glDeleteBuffers(1, &VBO);
+    glDeleteVertexArrays(1, &VAO);
+
+}
+
 void GraphicsLibrary::line(fvec3 p0, fvec3 p1, fvec4 color) {
     unsigned int VBO, VAO;
     std::vector<fvec3> vertices = {p0, p1};
@@ -122,10 +151,12 @@ void GraphicsLibrary::line(fvec3 p0, fvec3 p1, fvec4 color) {
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, 3 * sizeof(fvec3), vertices.data(), GL_STATIC_DRAW);
-    static Shader shader = Shader(Shader::createVertexShader(FileLoader::getPath("Resources/Shaders/DefaultVertex.glsl")),
-                                  Shader::createFragmentShader(FileLoader::getPath("Resources/Shaders/DefaultFragment.glsl")));
+    static Shader shader = Shader(
+            Shader::createVertexShader(FileLoader::getPath("Resources/Shaders/DefaultVertex.glsl")),
+            Shader::createFragmentShader(FileLoader::getPath("Resources/Shaders/DefaultFragment.glsl")));
     shader.activateShader();
     shader.setUniform("UNIFORM_MVP", Camera::getInstance()->Projection * Camera::getInstance()->View);
+    shader.setUniform("UNIFORM_color", color);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(fvec3), (void *) 0);
     glEnableVertexAttribArray(0);
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);

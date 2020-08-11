@@ -44,7 +44,7 @@ public:
 
     t length();
 
-    Vector3<t> toVector3();
+    Vector3<t> toVector3(t z);
 
     Vector2<t> unit();
 
@@ -143,8 +143,8 @@ t &Vector2<t>::operator[](int idx) {
 }
 
 template<class t>
-Vector3<t> Vector2<t>::toVector3() {
-    return Vector3<t>(x, y, 1);
+Vector3<t> Vector2<t>::toVector3(t z) {
+    return Vector3<t>(x, y, z);
 }
 
 template<class t>
