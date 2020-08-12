@@ -21,8 +21,10 @@ private:
     fvec3 up;
 public:
 
-    CameraMovement(Camera *camera);
+    static float mouseSensitivity;
+    static float cameraSpeed;
 
+    CameraMovement(Camera *camera);
 
     void keyboard(int key, int scancode, int action, int mods) override;
 

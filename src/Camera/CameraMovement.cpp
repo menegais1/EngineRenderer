@@ -19,7 +19,7 @@ CameraMovement::CameraMovement(Camera *camera) : camera(camera), angle(0, 0) {
 }
 
 void CameraMovement::keyboard(int key, int scancode, int action, int mods) {
-    double moveSpeed = 0.1;
+    double moveSpeed = cameraSpeed * GlobalManager::getInstance()->deltaTime;
 
     if (key == GLFW_KEY_O) {
         camera->cameraType = CameraType::Orthographic;
@@ -72,37 +72,41 @@ void CameraMovement::mouseButton(int button, int action, int modifier) {
 }
 
 void CameraMovement::mouseMovement(double xpos, double ypos) {
-
     if (isDragging && camera->cameraType == CameraType::Perspective) {
 
-        double xDelta = (xpos - lastMousePosition.x);
-        double yDelta = (ypos - lastMousePosition.y);
+        float xDelta = (xpos - lastMousePosition.x);
+        float yDelta = (ypos - lastMousePosition.y);
+        float xOffset = xDelta * mouseSensitivity;
+        float yOffset = yDelta * mouseSensitivity;
 
-        angle.x += yDelta;
+        angle.x += yOffset;
+        angle.y += xOffset;
 
-        if (angle.x > 90) {
-            angle.x = 90;
-            yDelta = 0;
-        } else if (angle.x < -90) {
-            angle.x = -90;
-            yDelta = 0;
+        if (angle.x >= 89) {
+            angle.x = 89;
+        } else if (angle.x <= -89) {
+            angle.x = -89;
         }
-        auto RY = fMatrix::rotateY(-xDelta * PI / 180.0);
-        auto RX = fMatrix::rotateX((camera->forward.z < 0 ? yDelta : -yDelta) * PI / 180.0);
-        auto R = RX * RY;
-        fvec3 rotatedEye = (R * (camera->at - camera->center).toVector4(1)).toVector3() + camera->center;
-        fvec3 rotatedUp = (R * camera->up.toVector4(1)).toVector3();
-        at = rotatedEye;
+
+        fvec3 direction;
+        direction.x = cos(angle.y  * PI / 180.0) * cos(angle.x * PI / 180.0);
+        direction.y = sin(angle.x * PI / 180.0);
+        direction.z = sin(angle.y  * PI / 180.0) * cos(angle.x * PI / 180.0);
+
+        at = eye + direction.unit();
     }
     lastMousePosition = fvec2(xpos, ypos);
 
 }
 
+float CameraMovement::mouseSensitivity = 1;
+float CameraMovement::cameraSpeed = 5;
+
 void CameraMovement::render() {
     camera->generateViewMatrix(eye, at, up);
 
-    GraphicsLibrary::line(fvec3(0,0,0),fvec3(10,0,0));
-    GraphicsLibrary::line(fvec3(0,0,0),fvec3(0,10,0));
-    GraphicsLibrary::line(fvec3(0,0,0),fvec3(0,0,10));
+    GraphicsLibrary::line(fvec3(0, 0, 0), fvec3(10, 0, 0));
+    GraphicsLibrary::line(fvec3(0, 0, 0), fvec3(0, 10, 0));
+    GraphicsLibrary::line(fvec3(0, 0, 0), fvec3(0, 0, 10));
 }
 

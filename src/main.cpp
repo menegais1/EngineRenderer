@@ -21,7 +21,7 @@ int main(void) {
     Shader defaultShader(vertex, fragment);
     Bitmap *bmp = new Bitmap(FileLoader::getPath("Resources/Textures/Albedo.bmp"));
     Texture2D rustyMetal(GL_RGBA, GL_RGBA, GL_FLOAT, bmp->originalBitmapArray, bmp->width, bmp->height);
-    fvec3 center(0, 0, 0);
+    fvec3 center(1, 0, 1);
     fvec3 eye = fvec3(0, 0, 1);
     Camera::getInstance()->generateViewMatrix(eye, center, fvec3(0, 1, 0));
     Camera::getInstance()->generateProjectionMatrix(60 * (3.14) / 180.0, width /

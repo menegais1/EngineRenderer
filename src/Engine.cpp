@@ -12,6 +12,7 @@
 #include "FileManagers/FileLoader.h"
 #include "IMGui/imgui.h"
 #include "Backend/GraphicsLibrary.h"
+#include "Camera/CameraMovement.h"
 #include <GLFW/glfw3.h>
 
 float Engine::calculateAngularVelocity(float rpm) {
@@ -71,6 +72,8 @@ void Engine::render() {
         ImGui::Checkbox("Show Crank", &showCrank);
         ImGui::Checkbox("Wireframe", &showWireframe);
         ImGui::SliderInt("Piston Quantity", &pistonQuantity, 1, 3);
+        ImGui::SliderFloat("Mouse Sensitivity", &CameraMovement::mouseSensitivity, 0.1f, 10.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+        ImGui::SliderFloat("Camera Speed", &CameraMovement::cameraSpeed, 1, 30.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 
         ImGui::End();
