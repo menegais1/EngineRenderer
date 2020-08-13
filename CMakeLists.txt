@@ -52,8 +52,6 @@ add_executable(RendererEngine
         src/FileManagers/ModelLoader.h
         src/Managers/GlobalManager.cpp
         src/Managers/GlobalManager.h
-        src/TmpObject.cpp
-        src/TmpObject.h
         src/Base/3D/ObjectFace.cpp
         src/Base/3D/ObjectFace.h
         src/Engine.cpp

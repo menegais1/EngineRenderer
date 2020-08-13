@@ -8,7 +8,6 @@
 #include "FileManagers/Bitmap/Bitmap.h"
 #include "Backend/Texture2D.h"
 #include "Backend/ObjectGL.h"
-#include "TmpObject.h"
 #include "Camera/CameraMovement.h"
 #include "Engine.h"
 
@@ -30,9 +29,6 @@ int main(void) {
                                                     10);
     Camera::getInstance()->setViewport(width, height, 0, 0);
     CameraMovement *movement = new CameraMovement(Camera::getInstance());
-
-//    TmpObject *obj = new TmpObject(defaultShader);
-//    obj->texture2D = rustyMetal;
 
 
     Engine *engine = new Engine(
